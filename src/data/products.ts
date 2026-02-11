@@ -1,0 +1,223 @@
+export interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  category: string;
+  images: string[];
+  featured?: boolean;
+  type: 'product' | 'rental';
+  rentalPrice?: number;
+  inStock: boolean;
+}
+
+export const categories = [
+  'All',
+  'Backdrops',
+  'Lighting',
+  'Florals',
+  'Props',
+  'Fabrics & Draping',
+  'Furniture',
+  'Centerpieces',
+];
+
+export const products: Product[] = [
+  {
+    id: '1',
+    name: 'Royal Gold Backdrop Panel',
+    description: 'Stunning gold sequin backdrop panel, perfect for weddings, galas, and corporate events. Creates a mesmerizing shimmer effect under any lighting.',
+    price: 299,
+    category: 'Backdrops',
+    images: ['https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800'],
+    featured: true,
+    type: 'product',
+    inStock: true,
+  },
+  {
+    id: '2',
+    name: 'Crystal LED Curtain Lights',
+    description: 'Premium LED curtain lights with crystal pendants. 300 warm white LEDs with 8 lighting modes. Waterproof and suitable for indoor/outdoor use.',
+    price: 189,
+    category: 'Lighting',
+    images: ['https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?w=800'],
+    featured: true,
+    type: 'product',
+    inStock: true,
+  },
+  {
+    id: '3',
+    name: 'Luxury Silk Flower Arch',
+    description: 'Handcrafted artificial flower arch with premium silk roses, peonies, and eucalyptus. Available in blush, ivory, and burgundy color palettes.',
+    price: 450,
+    category: 'Florals',
+    images: ['https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=800'],
+    featured: true,
+    type: 'product',
+    inStock: true,
+  },
+  {
+    id: '4',
+    name: 'Vintage Gold Candelabra Set',
+    description: 'Set of 3 ornate gold candelabras in varying heights. Perfect for table centerpieces or stage accent pieces.',
+    price: 175,
+    category: 'Centerpieces',
+    images: ['https://images.unsplash.com/photo-1478146059778-26028b07395a?w=800'],
+    type: 'product',
+    inStock: true,
+  },
+  {
+    id: '5',
+    name: 'Velvet Draping Set - Emerald',
+    description: 'Luxurious emerald velvet draping fabric set. Includes 4 panels (10ft each) with gold rope tie-backs.',
+    price: 320,
+    category: 'Fabrics & Draping',
+    images: ['https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800'],
+    featured: true,
+    type: 'product',
+    inStock: true,
+  },
+  {
+    id: '6',
+    name: 'Geometric Gold Frame Stand',
+    description: 'Modern hexagonal gold metal frame stand. 7ft tall, perfect for floral installations or fabric draping.',
+    price: 280,
+    category: 'Props',
+    images: ['https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800'],
+    type: 'product',
+    inStock: true,
+  },
+  {
+    id: '7',
+    name: 'Chesterfield Velvet Sofa',
+    description: 'Elegant tufted Chesterfield sofa in deep navy velvet with gold legs. Perfect for VIP lounge areas.',
+    price: 850,
+    category: 'Furniture',
+    images: ['https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800'],
+    type: 'rental',
+    rentalPrice: 150,
+    inStock: true,
+  },
+  {
+    id: '8',
+    name: 'LED Dance Floor Panel',
+    description: 'Interactive LED dance floor panel (4x4 ft). Color-changing with music sync capability. Connect multiple panels for larger coverage.',
+    price: 1200,
+    category: 'Lighting',
+    images: ['https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800'],
+    type: 'rental',
+    rentalPrice: 250,
+    inStock: true,
+  },
+  {
+    id: '9',
+    name: 'Rustic Wooden Arch',
+    description: 'Hand-finished rustic wooden ceremony arch. 8ft tall with natural wood grain. Easy assembly with included hardware.',
+    price: 380,
+    category: 'Props',
+    images: ['https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800'],
+    type: 'product',
+    inStock: true,
+  },
+  {
+    id: '10',
+    name: 'Fairy Light Canopy Kit',
+    description: 'Complete fairy light canopy kit covering up to 20x20 ft area. Includes 1000 warm white LEDs on invisible wire.',
+    price: 220,
+    category: 'Lighting',
+    images: ['https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800'],
+    featured: true,
+    type: 'product',
+    inStock: true,
+  },
+  {
+    id: '11',
+    name: 'Moroccan Lantern Collection',
+    description: 'Set of 6 handcrafted Moroccan-style metal lanterns in gold finish. Various sizes from 8" to 24".',
+    price: 195,
+    category: 'Props',
+    images: ['https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800'],
+    type: 'product',
+    inStock: true,
+  },
+  {
+    id: '12',
+    name: 'Premium Stage Fog Machine',
+    description: 'Professional-grade fog machine with wireless remote. Creates dense, low-lying fog perfect for dramatic stage entrances.',
+    price: 450,
+    category: 'Lighting',
+    images: ['https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800'],
+    type: 'rental',
+    rentalPrice: 85,
+    inStock: true,
+  },
+];
+
+export const portfolioItems = [
+  {
+    id: '1',
+    title: 'Royal Wedding Reception',
+    description: 'An opulent gold and ivory reception with 500+ guests',
+    image: 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800',
+    category: 'Wedding',
+  },
+  {
+    id: '2',
+    title: 'Corporate Gala Night',
+    description: 'Elegant black-tie corporate event with dramatic lighting',
+    image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800',
+    category: 'Corporate',
+  },
+  {
+    id: '3',
+    title: 'Festival Stage Design',
+    description: 'Vibrant outdoor festival main stage with LED installations',
+    image: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800',
+    category: 'Festival',
+  },
+  {
+    id: '4',
+    title: 'Luxury Birthday Celebration',
+    description: 'Intimate luxury birthday with floral cascades and candlelight',
+    image: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800',
+    category: 'Private Party',
+  },
+  {
+    id: '5',
+    title: 'Fashion Show Runway',
+    description: 'Minimalist runway design with dramatic backdrop lighting',
+    image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800',
+    category: 'Fashion',
+  },
+  {
+    id: '6',
+    title: 'Awards Ceremony',
+    description: 'Grand awards ceremony with cascading crystal installations',
+    image: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800',
+    category: 'Corporate',
+  },
+];
+
+export const testimonials = [
+  {
+    id: '1',
+    name: 'Sarah Mitchell',
+    role: 'Event Planner',
+    text: 'Absolutely stunning work! They transformed our venue into a fairy tale. Every detail was perfect and our clients were blown away.',
+    rating: 5,
+  },
+  {
+    id: '2',
+    name: 'James Rodriguez',
+    role: 'Corporate Events Director',
+    text: 'Professional, creative, and incredibly reliable. They\'ve handled our annual gala for three years running and always exceed expectations.',
+    rating: 5,
+  },
+  {
+    id: '3',
+    name: 'Amira Hassan',
+    role: 'Bride',
+    text: 'My wedding was everything I dreamed of and more. The team understood my vision perfectly and brought it to life with such elegance.',
+    rating: 5,
+  },
+];
