@@ -14,7 +14,7 @@ const faqs = [
 ];
 
 const FAQSection = () => (
-  <section className="py-24">
+  <section id="faq" className="py-24">
     <div className="container mx-auto px-4 max-w-3xl">
       <div className="text-center mb-16">
         <p className="text-primary tracking-[0.2em] uppercase text-sm mb-2 font-medium">Questions</p>

@@ -24,11 +24,11 @@ const Footer = () => {
             <h4 className="font-display text-lg font-semibold text-foreground">Quick Links</h4>
             <div className="flex flex-col gap-2">
               {[
-                { label: 'Products', to: '/products' },
-                { label: 'Rentals', to: '/rentals' },
-                { label: 'Custom Design', to: '/custom-design' },
-                { label: 'About Us', to: '/about' },
-                { label: 'Contact', to: '/contact' },
+                { label: 'About Us', to: '/#about' },
+                { label: 'Services', to: '/#services' },
+                { label: 'Portfolio', to: '/#portfolio' },
+                { label: 'Why Choose Us', to: '/#why-choose-us' },
+                { label: 'Contact', to: '/#contact' },
               ].map(link => (
                 <Link key={link.to} to={link.to} className="text-sm text-muted-foreground hover:text-primary transition-colors">
                   {link.label}
@@ -41,9 +41,9 @@ const Footer = () => {
           <div className="space-y-4">
             <h4 className="font-display text-lg font-semibold text-foreground">Contact Us</h4>
             <div className="flex flex-col gap-3 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2"><Phone className="w-4 h-4 text-primary" /> +1 (555) 123-4567</div>
-              <div className="flex items-center gap-2"><Mail className="w-4 h-4 text-primary" /> hello@luxestage.com</div>
-              <div className="flex items-center gap-2"><MapPin className="w-4 h-4 text-primary" /> 123 Design Ave, NY</div>
+              <div className="flex items-center gap-2"><Phone className="w-4 h-4 text-primary" /> 9611519412</div>
+              <div className="flex items-center gap-2"><Mail className="w-4 h-4 text-primary" /> Kovaicartoonentertainers@gmail.com</div>
+              <div className="flex items-center gap-2"><MapPin className="w-4 h-4 text-primary" /> Kavundampalyam office, Coimbatore 641030</div>
             </div>
           </div>
 

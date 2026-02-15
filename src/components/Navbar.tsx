@@ -6,11 +6,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
   { label: 'Home', to: '/' },
-  { label: 'Products', to: '/products' },
-  { label: 'Rentals', to: '/rentals' },
-  { label: 'Custom Design', to: '/custom-design' },
-  { label: 'About', to: '/about' },
-  { label: 'Contact', to: '/contact' },
+  { label: 'About', to: '/#about' },
+  { label: 'Services', to: '/#services' },
+  { label: 'Portfolio', to: '/#portfolio' },
+  { label: 'Why Choose Us', to: '/#why-choose-us' },
+  { label: 'Process', to: '/#process' },
+  { label: 'Testimonials', to: '/#testimonials' },
+  { label: 'FAQ', to: '/#faq' },
+  { label: 'Contact', to: '/#contact' },
 ];
 
 const Navbar = () => {

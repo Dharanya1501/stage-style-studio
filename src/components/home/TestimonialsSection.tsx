@@ -3,7 +3,7 @@ import { Star } from 'lucide-react';
 import { testimonials } from '@/data/products';
 
 const TestimonialsSection = () => (
-  <section className="py-24 bg-secondary">
+  <section id="testimonials" className="py-24 bg-secondary">
     <div className="container mx-auto px-4">
       <div className="text-center mb-16">
         <p className="text-primary tracking-[0.2em] uppercase text-sm mb-2 font-medium">Client Love</p>
