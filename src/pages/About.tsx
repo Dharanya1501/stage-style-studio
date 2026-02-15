@@ -7,7 +7,7 @@ const About = () => {
       <section className="py-16 bg-secondary">
         <div className="container mx-auto px-4">
           <p className="text-primary tracking-[0.2em] uppercase text-sm mb-2">Our Story</p>
-          <h1 className="font-display text-4xl md:text-5xl font-bold">About Luxe Stage</h1>
+          <h1 className="font-display text-4xl md:text-5xl font-bold">About Cartoon Entertainers</h1>
         </div>
       </section>
 
@@ -22,7 +22,7 @@ const About = () => {
             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="space-y-6">
               <h2 className="font-display text-3xl font-bold">Crafting Unforgettable Experiences Since 2014</h2>
               <p className="text-foreground/70 leading-relaxed">
-                Luxe Stage was born from a passion for transforming ordinary spaces into extraordinary experiences. What started as a small decor studio has grown into a full-service stage design company serving clients across the country.
+                Cartoon Entertainers was born from a passion for transforming ordinary spaces into extraordinary experiences. What started as a small decor studio has grown into a full-service stage design company serving clients across the country.
               </p>
               <p className="text-foreground/70 leading-relaxed">
                 Our team of designers, craftspeople, and event specialists work together to bring your vision to life — whether it's an intimate celebration or a grand-scale production.
