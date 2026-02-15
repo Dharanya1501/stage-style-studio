@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const HeroSection = () => (
@@ -14,27 +13,27 @@ const HeroSection = () => (
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <p className="text-primary tracking-[0.3em] uppercase text-sm mb-4 font-medium">Luxury Event Decor</p>
+        <p className="text-primary tracking-[0.3em] uppercase text-sm mb-4 font-medium">Event Decor</p>
         <h1 className="font-display text-5xl md:text-7xl font-bold mb-6 leading-tight text-foreground">
           Transforming Moments into <br />
           <span className="text-gradient-gold">Magical Experiences</span>
         </h1>
         <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10">
-          Luxury Event Decor for Weddings, Corporate Events & Private Celebrations
+          Event Decor for Weddings, Corporate Events & Private Celebrations
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            to="/products"
+          <a
+            href="#portfolio"
             className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-gold text-primary-foreground font-semibold rounded-md hover:opacity-90 transition-opacity"
           >
             View Portfolio
-          </Link>
-          <Link
-            to="/custom-design"
+          </a>
+          <a
+            href="#contact"
             className="inline-flex items-center gap-2 px-8 py-3 border border-primary/40 text-foreground font-semibold rounded-md hover:bg-primary/10 transition-colors"
           >
             Book a Consultation
-          </Link>
+          </a>
         </div>
       </motion.div>
     </div>

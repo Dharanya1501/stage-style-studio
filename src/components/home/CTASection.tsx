@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const CTASection = () => (
@@ -20,12 +19,12 @@ const CTASection = () => (
         <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-10">
           Ready to transform your next event into an unforgettable experience? Let's talk.
         </p>
-        <Link
-          to="/custom-design"
+        <a
+          href="#contact"
           className="inline-flex items-center gap-2 px-10 py-4 bg-gradient-gold text-primary-foreground font-semibold rounded-md hover:opacity-90 transition-opacity text-lg"
         >
           Get a Quote
-        </Link>
+        </a>
       </motion.div>
     </div>
   </section>
