@@ -18,7 +18,7 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-lg border-b border-border">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         <Link to="/" className="font-display text-2xl font-bold text-gradient-gold">
           LUXE STAGE
@@ -30,7 +30,7 @@ const Navbar = () => {
             <Link
               key={link.to}
               to={link.to}
-              className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors tracking-wide uppercase"
+              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors tracking-wide uppercase"
             >
               {link.label}
             </Link>
@@ -71,7 +71,7 @@ const Navbar = () => {
                   key={link.to}
                   to={link.to}
                   onClick={() => setMobileOpen(false)}
-                  className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors tracking-wide uppercase"
+                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors tracking-wide uppercase"
                 >
                   {link.label}
                 </Link>
