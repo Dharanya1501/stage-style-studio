@@ -44,17 +44,20 @@ const Navbar = () => {
   }, [location.pathname]);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, link: typeof navLinks[0]) => {
-    if (link.section && location.pathname === '/') {
+    if (location.pathname === '/') {
       e.preventDefault();
-      const el = document.getElementById(link.section);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setActiveSection(link.section);
+      if (link.section) {
+        const el = document.getElementById(link.section);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          setActiveSection(link.section);
+        }
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setActiveSection('');
       }
-      setMobileOpen(false);
-    } else {
-      setMobileOpen(false);
     }
+    setMobileOpen(false);
   };
 
   const isActive = (link: typeof navLinks[0]) => {
