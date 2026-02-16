@@ -68,8 +68,8 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-lg border-b border-border">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         <Link to="/" className="flex items-center gap-2">
-          <img src={logo} alt="Cartoon Entertainers logo" className="h-10 w-10 rounded-md object-cover" />
-          <span className="font-display text-xl font-bold text-gradient-gold hidden sm:inline">Cartoon Entertainers</span>
+          <img src={logo} alt="Cartoon Entertainers logo" className="h-9 w-9 sm:h-10 sm:w-10 rounded-md object-cover" />
+          <span className="font-display text-sm sm:text-xl font-bold text-gradient-gold truncate max-w-[160px] sm:max-w-none">Cartoon Entertainers</span>
         </Link>
 
         {/* Desktop */}
