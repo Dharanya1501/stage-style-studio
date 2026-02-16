@@ -17,7 +17,7 @@ const ContactSection = () => (
         {[
           { icon: Phone, label: 'Call Us', value: '9611519412', href: 'tel:9611519412' },
           { icon: Mail, label: 'Email Us', value: 'Kovaicartoonentertainers@gmail.com', href: 'mailto:Kovaicartoonentertainers@gmail.com' },
-          { icon: MapPin, label: 'Visit Us', value: 'Kavundampalyam office, Coimbatore 641030', href: undefined },
+          { icon: MapPin, label: 'Visit Us', value: 'Kavundampalyam office, Coimbatore 641030', href: 'https://maps.google.com/?q=Kavundampalyam+Coimbatore+641030' },
         ].map(item => (
           <div key={item.label} className="flex flex-col items-center text-center p-8 bg-card border border-border rounded-2xl shadow-md hover:shadow-lg transition-shadow">
             <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-5">
