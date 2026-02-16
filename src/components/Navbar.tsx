@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingCart, Menu, X } from 'lucide-react';
-import { useCart } from '@/context/CartContext';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
@@ -15,7 +14,6 @@ const navLinks = [
 ];
 
 const Navbar = () => {
-  const { totalItems } = useCart();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const location = useLocation();
@@ -98,15 +96,7 @@ const Navbar = () => {
           ))}
         </div>
 
-        <div className="flex items-center gap-4">
-          <Link to="/cart" className="relative p-2 hover:text-primary transition-colors">
-            <ShoppingCart className="w-5 h-5" />
-            {totalItems > 0 && (
-              <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
-                {totalItems}
-              </span>
-            )}
-          </Link>
+        <div className="flex items-center">
           <button
             className="md:hidden p-2"
             onClick={() => setMobileOpen(!mobileOpen)}

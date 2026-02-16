@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="bg-card border-t border-border">
       <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Brand */}
           <div className="space-y-4">
             <h3 className="font-display text-2xl font-bold text-gradient-gold">Cartoon Entertainers</h3>
@@ -48,21 +48,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Newsletter */}
-          <div className="space-y-4">
-            <h4 className="font-display text-lg font-semibold text-foreground">Newsletter</h4>
-            <p className="text-sm text-muted-foreground">Subscribe for design inspiration and exclusive offers.</p>
-            <div className="flex gap-2">
-              <input
-                type="email"
-                placeholder="Your email"
-                className="flex-1 px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-              />
-              <button className="px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-md hover:bg-primary/90 transition-colors">
-                Join
-              </button>
-            </div>
-          </div>
         </div>
 
         {/* Instagram Gallery Preview */}
