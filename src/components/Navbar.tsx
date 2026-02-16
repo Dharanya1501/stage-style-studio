@@ -1,24 +1,66 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { ShoppingCart, Menu, X } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
-  { label: 'Home', to: '/' },
-  { label: 'About', to: '/#about' },
-  { label: 'Services', to: '/#services' },
-  { label: 'Portfolio', to: '/#portfolio' },
-  { label: 'Why Choose Us', to: '/#why-choose-us' },
-  { label: 'Process', to: '/#process' },
-  { label: 'Testimonials', to: '/#testimonials' },
-  { label: 'FAQ', to: '/#faq' },
-  { label: 'Contact', to: '/#contact' },
+  { label: 'Home', to: '/', section: '' },
+  { label: 'About', to: '/#about', section: 'about' },
+  { label: 'Services', to: '/#services', section: 'services' },
+  { label: 'Portfolio', to: '/#portfolio', section: 'portfolio' },
+  { label: 'Process', to: '/#process', section: 'process' },
+  { label: 'Testimonials', to: '/#testimonials', section: 'testimonials' },
+  { label: 'Contact', to: '/#contact', section: 'contact' },
 ];
 
 const Navbar = () => {
   const { totalItems } = useCart();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+  const location = useLocation();
+
+  useEffect(() => {
+    const sectionIds = navLinks.filter(l => l.section).map(l => l.section);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter(e => e.isIntersecting);
+        if (visible.length > 0) {
+          const topEntry = visible.reduce((a, b) =>
+            a.boundingClientRect.top < b.boundingClientRect.top ? a : b
+          );
+          setActiveSection(topEntry.target.id);
+        }
+      },
+      { rootMargin: '-80px 0px -60% 0px', threshold: 0.1 }
+    );
+
+    sectionIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [location.pathname]);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, link: typeof navLinks[0]) => {
+    if (link.section && location.pathname === '/') {
+      e.preventDefault();
+      const el = document.getElementById(link.section);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setActiveSection(link.section);
+      }
+      setMobileOpen(false);
+    } else {
+      setMobileOpen(false);
+    }
+  };
+
+  const isActive = (link: typeof navLinks[0]) => {
+    if (!link.section) return activeSection === '' && location.pathname === '/';
+    return activeSection === link.section;
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-lg border-b border-border">
@@ -28,14 +70,27 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6">
           {navLinks.map(link => (
             <Link
               key={link.to}
               to={link.to}
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors tracking-wide uppercase"
+              onClick={(e) => handleNavClick(e, link)}
+              className={`text-sm font-medium transition-colors tracking-wide uppercase relative py-1 ${
+                isActive(link)
+                  ? 'text-primary'
+                  : 'text-muted-foreground hover:text-primary'
+              }`}
+              aria-current={isActive(link) ? 'page' : undefined}
             >
               {link.label}
+              {isActive(link) && (
+                <motion.span
+                  layoutId="nav-underline"
+                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full"
+                  transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                />
+              )}
             </Link>
           ))}
         </div>
@@ -73,8 +128,13 @@ const Navbar = () => {
                 <Link
                   key={link.to}
                   to={link.to}
-                  onClick={() => setMobileOpen(false)}
-                  className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors tracking-wide uppercase"
+                  onClick={(e) => handleNavClick(e, link)}
+                  className={`text-sm font-medium transition-colors tracking-wide uppercase ${
+                    isActive(link)
+                      ? 'text-primary'
+                      : 'text-muted-foreground hover:text-primary'
+                  }`}
+                  aria-current={isActive(link) ? 'page' : undefined}
                 >
                   {link.label}
                 </Link>
