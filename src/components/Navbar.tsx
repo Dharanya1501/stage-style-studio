@@ -67,13 +67,13 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-lg border-b border-border">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
-        <Link to="/" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2 shrink-0">
           <img src={logo} alt="Cartoon Entertainers logo" className="h-9 w-9 sm:h-10 sm:w-10 rounded-md object-cover" />
-          <span className="font-display text-sm sm:text-xl font-bold text-gradient-gold truncate max-w-[160px] sm:max-w-none">Cartoon Entertainers</span>
+          <span className="font-display text-sm sm:text-lg font-bold text-gradient-gold truncate max-w-[140px] sm:max-w-none">Cartoon Entertainers</span>
         </Link>
 
-        {/* Desktop */}
-        <div className="hidden md:flex items-center gap-6">
+        {/* Desktop — hidden below lg (1024px) */}
+        <div className="hidden lg:flex items-center gap-5">
           {navLinks.map(link => (
             <Link
               key={link.to}
@@ -98,25 +98,24 @@ const Navbar = () => {
           ))}
         </div>
 
-        <div className="flex items-center">
-          <button
-            className="md:hidden p-2"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-        </div>
+        {/* Hamburger — visible below lg */}
+        <button
+          className="lg:hidden p-2"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="Toggle menu"
+        >
+          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile / Tablet menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background border-b border-border overflow-hidden"
+            className="lg:hidden bg-background border-b border-border overflow-hidden"
           >
             <div className="flex flex-col px-4 py-4 gap-4">
               {navLinks.map(link => (
