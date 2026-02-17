@@ -1,8 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import logo from '@/assets/logo.jpeg';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from '@/components/ui/sheet';
 
 const navLinks = [
   { label: 'Home', to: '/', section: '' },
@@ -42,9 +48,8 @@ const Navbar = () => {
     return () => observer.disconnect();
   }, [location.pathname]);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, link: typeof navLinks[0]) => {
+  const handleNavClick = (link: typeof navLinks[0]) => {
     if (location.pathname === '/') {
-      e.preventDefault();
       if (link.section) {
         const el = document.getElementById(link.section);
         if (el) {
@@ -75,10 +80,15 @@ const Navbar = () => {
         {/* Desktop — hidden below lg (1024px) */}
         <div className="hidden lg:flex items-center gap-5">
           {navLinks.map(link => (
-            <Link
+            <a
               key={link.to}
-              to={link.to}
-              onClick={(e) => handleNavClick(e, link)}
+              href={link.to}
+              onClick={(e) => {
+                if (location.pathname === '/') {
+                  e.preventDefault();
+                  handleNavClick(link);
+                }
+              }}
               className={`text-sm font-medium transition-colors tracking-wide uppercase relative py-1 ${
                 isActive(link)
                   ? 'text-primary'
@@ -94,49 +104,53 @@ const Navbar = () => {
                   transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                 />
               )}
-            </Link>
+            </a>
           ))}
         </div>
 
         {/* Hamburger — visible below lg */}
         <button
           className="lg:hidden p-2"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
+          onClick={() => setMobileOpen(true)}
+          aria-label="Open menu"
         >
-          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          <Menu className="w-5 h-5" />
         </button>
       </div>
 
-      {/* Mobile / Tablet menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-background border-b border-border overflow-hidden"
-          >
-            <div className="flex flex-col px-4 py-4 gap-4">
-              {navLinks.map(link => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  onClick={(e) => handleNavClick(e, link)}
-                  className={`text-sm font-medium transition-colors tracking-wide uppercase ${
-                    isActive(link)
-                      ? 'text-primary'
-                      : 'text-muted-foreground hover:text-primary'
-                  }`}
-                  aria-current={isActive(link) ? 'page' : undefined}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Left-side Sheet for mobile / tablet */}
+      <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+        <SheetContent side="left" className="w-[280px] sm:w-[320px]">
+          <SheetHeader>
+            <SheetTitle className="flex items-center gap-2">
+              <img src={logo} alt="Logo" className="h-8 w-8 rounded-md object-cover" />
+              <span className="font-display text-lg font-bold text-gradient-gold">Cartoon Entertainers</span>
+            </SheetTitle>
+          </SheetHeader>
+          <div className="flex flex-col gap-2 mt-6">
+            {navLinks.map(link => (
+              <a
+                key={link.to}
+                href={link.to}
+                onClick={(e) => {
+                  if (location.pathname === '/') {
+                    e.preventDefault();
+                  }
+                  handleNavClick(link);
+                }}
+                className={`text-base font-medium transition-colors tracking-wide uppercase px-3 py-3 rounded-md ${
+                  isActive(link)
+                    ? 'text-primary bg-primary/10'
+                    : 'text-muted-foreground hover:text-primary hover:bg-muted'
+                }`}
+                aria-current={isActive(link) ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </SheetContent>
+      </Sheet>
     </nav>
   );
 };
