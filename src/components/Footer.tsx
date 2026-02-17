@@ -13,7 +13,7 @@ const Footer = () => {
               Creating unforgettable event experiences with premium decor, rentals, and custom design services.
             </p>
             <div className="flex gap-4 pt-2">
-              <a href="https://www.instagram.com/cartoonentertainers" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors"><Instagram className="w-5 h-5" /></a>
+              <a href="https://www.instagram.com/cartoonentertainers?igsh=MWxqZWF0aGZreXlxdw==" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors"><Instagram className="w-5 h-5" /></a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors"><Facebook className="w-5 h-5" /></a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors"><Twitter className="w-5 h-5" /></a>
             </div>
@@ -52,7 +52,7 @@ const Footer = () => {
 
         {/* Instagram Gallery Preview */}
         <div className="mt-12 pt-8 border-t border-border">
-          <h4 className="font-display text-lg font-semibold text-foreground mb-4 text-center">Follow Us on Instagram — <a href="https://www.instagram.com/cartoonentertainers" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">@cartoonentertainers</a></h4>
+          <h4 className="font-display text-lg font-semibold text-foreground mb-4 text-center">Follow Us on Instagram — <a href="https://www.instagram.com/cartoonentertainers?igsh=MWxqZWF0aGZreXlxdw==" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">@cartoonentertainers</a></h4>
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
             {[
               'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=200&h=200&fit=crop',
@@ -62,7 +62,7 @@ const Footer = () => {
               'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=200&h=200&fit=crop',
               'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=200&h=200&fit=crop',
             ].map((src, i) => (
-              <a key={i} href="https://www.instagram.com/cartoonentertainers" target="_blank" rel="noopener noreferrer" className="aspect-square overflow-hidden rounded-md group">
+              <a key={i} href="https://www.instagram.com/cartoonentertainers?igsh=MWxqZWF0aGZreXlxdw==" target="_blank" rel="noopener noreferrer" className="aspect-square overflow-hidden rounded-md group">
                 <img src={src} alt="Instagram post" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy" />
               </a>
             ))}
