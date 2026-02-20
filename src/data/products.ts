@@ -196,6 +196,34 @@ export const portfolioItems = [
     image: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800',
     category: 'Corporate',
   },
+  {
+    id: '7',
+    title: 'Elegant Wedding Stage Decor',
+    description: 'Traditional floral mandap with pink and white roses',
+    image: '/images/wedding-decor-1.webp',
+    category: 'Wedding Decor',
+  },
+  {
+    id: '8',
+    title: 'Grand Reception Stage',
+    description: 'Luxurious reception stage with floral pillars and elegant seating',
+    image: '/images/wedding-decor-2.webp',
+    category: 'Wedding Decor',
+  },
+  {
+    id: '9',
+    title: 'Modern Wedding Stage',
+    description: 'Contemporary stage setup with warm lighting and white florals',
+    image: '/images/wedding-decor-3.webp',
+    category: 'Wedding Decor',
+  },
+  {
+    id: '10',
+    title: 'Traditional Temple Stage',
+    description: 'Grand traditional mandap with golden pillars and floral garlands',
+    image: '/images/wedding-decor-4.webp',
+    category: 'Wedding Decor',
+  },
 ];
 
 export const testimonials = [
