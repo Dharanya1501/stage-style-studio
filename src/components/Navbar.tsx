@@ -145,14 +145,14 @@ const Navbar = () => {
               </button>
             </div>
 
-            {/* Centered links */}
-            <div className="flex-1 flex flex-col items-center justify-center gap-3 px-6">
+            {/* Right-aligned links */}
+            <div className="flex-1 flex flex-col items-end justify-center gap-6 px-8 pr-12">
               {navLinks.map((link, i) => (
                 <motion.a
                   key={link.to}
                   href={link.to}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 + i * 0.05 }}
                   onClick={(e) => {
                     if (location.pathname === '/') {
@@ -160,10 +160,10 @@ const Navbar = () => {
                     }
                     handleNavClick(link);
                   }}
-                  className={`text-xl font-display font-semibold tracking-wide uppercase px-8 py-3 rounded-lg transition-colors w-full max-w-xs text-center ${
+                  className={`text-xl font-display font-semibold tracking-wide uppercase transition-colors text-right ${
                     isActive(link)
-                      ? 'text-primary-foreground bg-primary'
-                      : 'text-foreground hover:bg-muted'
+                      ? 'text-primary'
+                      : 'text-muted-foreground hover:text-primary'
                   }`}
                   aria-current={isActive(link) ? 'page' : undefined}
                 >
