@@ -3,7 +3,7 @@ import { Heart, Building2, Cake, Flower2, Frame } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const services = [
-  { icon: Heart, title: 'Wedding Decor', desc: 'Romantic and elegant designs for your special day.', link: '/products' },
+  { icon: Heart, title: 'Wedding Decor', desc: 'Romantic and elegant designs for your special day.', link: '/wedding-decor' },
   { icon: Building2, title: 'Corporate Event Styling', desc: 'Professional setups for galas, launches, and conferences.', link: '/products' },
   { icon: Cake, title: 'Birthday & Private Parties', desc: 'Fun, themed, and luxury celebrations for every age.', link: '/products' },
   { icon: Flower2, title: 'Floral Installations', desc: 'Stunning floral arches, walls, and centerpieces.', link: '/products' },
