@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Index from "./pages/Index";
 import WeddingDecor from "./pages/WeddingDecor";
+import BirthdayDecor from "./pages/BirthdayDecor";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/wedding-decor" element={<WeddingDecor />} />
+            <Route path="/birthday-decor" element={<BirthdayDecor />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
