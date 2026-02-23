@@ -1,28 +1,54 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { ArrowRight, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { portfolioItems } from '@/data/products';
 
-const PortfolioSection = () => {
+const allCategories = ['All', ...Array.from(new Set(portfolioItems.map(item => item.category)))];
+
+const Gallery = () => {
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const [lightboxImg, setLightboxImg] = useState<{ src: string; title: string } | null>(null);
 
+  const filtered = selectedCategory === 'All'
+    ? portfolioItems
+    : portfolioItems.filter(item => item.category === selectedCategory);
+
   return (
-    <>
-      <section id="portfolio" className="py-24">
+    <main className="pt-20 min-h-screen">
+      <section className="py-16 bg-secondary">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <p className="text-primary tracking-[0.2em] uppercase text-sm mb-2 font-medium">Our Work</p>
-            <h2 className="font-display text-4xl font-bold text-foreground">Portfolio</h2>
+          <p className="text-primary tracking-[0.2em] uppercase text-sm mb-2">Our Work</p>
+          <h1 className="font-display text-4xl md:text-5xl font-bold mb-4">Full Gallery</h1>
+          <p className="text-muted-foreground max-w-2xl">Browse our complete collection across all service categories.</p>
+        </div>
+      </section>
+
+      <section className="py-12">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-wrap gap-2 mb-10">
+            {allCategories.map(cat => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-4 py-2 text-sm rounded-full border transition-colors ${
+                  selectedCategory === cat
+                    ? 'bg-primary text-primary-foreground border-primary'
+                    : 'border-border text-muted-foreground hover:border-primary/30 hover:text-foreground'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
           </div>
+
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
-            {portfolioItems.map((item, i) => (
+            {filtered.map((item, i) => (
               <motion.div
                 key={item.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
+                transition={{ delay: i * 0.05 }}
                 className="break-inside-avoid group relative overflow-hidden rounded-lg cursor-pointer"
                 onClick={() => setLightboxImg({ src: item.image, title: item.title })}
               >
@@ -42,14 +68,6 @@ const PortfolioSection = () => {
               </motion.div>
             ))}
           </div>
-          <div className="text-center mt-12">
-            <Link
-              to="/gallery"
-              className="inline-flex items-center gap-2 px-8 py-3 border border-primary/40 text-foreground font-semibold rounded-md hover:bg-primary/10 transition-colors"
-            >
-              See Full Gallery <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
         </div>
       </section>
 
@@ -63,11 +81,7 @@ const PortfolioSection = () => {
             className="fixed inset-0 z-[70] bg-black/90 flex items-center justify-center p-4"
             onClick={() => setLightboxImg(null)}
           >
-            <button
-              className="absolute top-4 right-4 text-white/80 hover:text-white z-10"
-              onClick={() => setLightboxImg(null)}
-              aria-label="Close"
-            >
+            <button className="absolute top-4 right-4 text-white/80 hover:text-white z-10" onClick={() => setLightboxImg(null)} aria-label="Close">
               <X className="w-8 h-8" />
             </button>
             <motion.img
@@ -82,8 +96,8 @@ const PortfolioSection = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </main>
   );
 };
 
-export default PortfolioSection;
+export default Gallery;
