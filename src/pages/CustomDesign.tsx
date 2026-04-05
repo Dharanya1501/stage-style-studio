@@ -126,11 +126,12 @@ const CustomDesign = () => {
               </div>
               <select required className="w-full px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary">
                 <option value="">Budget Range</option>
-                <option>Under $1,000</option>
-                <option>$1,000 - $5,000</option>
-                <option>$5,000 - $15,000</option>
-                <option>$15,000 - $50,000</option>
-                <option>$50,000+</option>
+                <option>₹5,000 – ₹10,000</option>
+                <option>₹10,000 – ₹25,000</option>
+                <option>₹25,000 – ₹50,000</option>
+                <option>₹50,000 – ₹1,00,000</option>
+                <option>₹1,00,000 – ₹2,50,000</option>
+                <option>₹2,50,000 and above</option>
               </select>
               <textarea placeholder="Describe your vision, theme, and any specific requirements..." rows={5} required className="w-full px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary resize-none" />
               <button type="submit" className="w-full py-3 bg-gradient-gold text-primary-foreground font-semibold rounded-md hover:opacity-90 transition-opacity">
