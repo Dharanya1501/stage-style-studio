@@ -1,9 +1,10 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { portfolioItems } from '@/data/products';
 import { useToast } from '@/hooks/use-toast';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, X } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const steps = [
   { num: '01', title: 'Consultation', desc: 'Share your vision, event details, and preferences in a free consultation call.' },
@@ -15,14 +16,32 @@ const steps = [
 const CustomDesign = () => {
   const { toast } = useToast();
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [lightboxImg, setLightboxImg] = useState<{ src: string; title: string } | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const backdropItems = portfolioItems.filter(item => item.category === 'Custom Backdrop');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({ title: 'Quote Request Sent!', description: 'Our design team will contact you within 48 hours.' });
-    setSubmitted(true);
+    setLoading(true);
+
+    try {
+      await emailjs.sendForm(
+        'service_ski952p',
+        'template_8vk5gkq',
+        formRef.current!,
+        'Of_6ruKeVhIp1pI-N'
+      );
+      toast({ title: 'Quote Request Sent!', description: 'Our design team will contact you within 24 hours.' });
+      setSubmitted(true);
+      formRef.current?.reset();
+    } catch (error) {
+      console.error('EmailJS error:', error);
+      toast({ title: 'Failed to send', description: 'Something went wrong. Please try again.', variant: 'destructive' });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -38,7 +57,6 @@ const CustomDesign = () => {
         </div>
       </section>
 
-      {/* Backdrop Gallery */}
       {backdropItems.length > 0 && (
         <section className="py-20">
           <div className="container mx-auto px-4">
@@ -71,7 +89,6 @@ const CustomDesign = () => {
         </section>
       )}
 
-      {/* Process */}
       <section className="py-20 bg-secondary">
         <div className="container mx-auto px-4">
           <h2 className="font-display text-3xl font-bold text-center mb-16">Our Process</h2>
@@ -94,7 +111,6 @@ const CustomDesign = () => {
         </div>
       </section>
 
-      {/* Quote Form */}
       <section className="py-20">
         <div className="container mx-auto px-4 max-w-2xl">
           <div className="text-center mb-12">
@@ -104,16 +120,16 @@ const CustomDesign = () => {
           {submitted ? (
             <div className="text-center py-12 bg-card border border-border rounded-lg">
               <p className="text-primary text-lg font-semibold mb-2">Thank you!</p>
-              <p className="text-muted-foreground">Our design team will contact you within 48 hours.</p>
+              <p className="text-muted-foreground">Our design team will contact you within 24 hours.</p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4 bg-card border border-border rounded-lg p-8">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 bg-card border border-border rounded-lg p-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <input placeholder="Your Name" required className="w-full px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary" />
-                <input type="email" placeholder="Email" required className="w-full px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary" />
+                <input name="from_name" placeholder="Your Name" required className="w-full px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary" />
+                <input name="from_email" type="email" placeholder="Email" required className="w-full px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary" />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <select required className="w-full px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary">
+                <select name="event_type" required className="w-full px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary">
                   <option value="">Event Type</option>
                   <option>Wedding</option>
                   <option>Corporate Event</option>
@@ -122,9 +138,9 @@ const CustomDesign = () => {
                   <option>Fashion Show</option>
                   <option>Other</option>
                 </select>
-                <input type="date" required className="w-full px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary" />
+                <input name="event_date" type="date" required className="w-full px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary" />
               </div>
-              <select required className="w-full px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary">
+              <select name="budget_range" required className="w-full px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary">
                 <option value="">Budget Range</option>
                 <option>₹5,000 – ₹10,000</option>
                 <option>₹10,000 – ₹25,000</option>
@@ -133,16 +149,15 @@ const CustomDesign = () => {
                 <option>₹1,00,000 – ₹2,50,000</option>
                 <option>₹2,50,000 and above</option>
               </select>
-              <textarea placeholder="Describe your vision, theme, and any specific requirements..." rows={5} required className="w-full px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary resize-none" />
-              <button type="submit" className="w-full py-3 bg-gradient-gold text-primary-foreground font-semibold rounded-md hover:opacity-90 transition-opacity">
-                Submit Quote Request
+              <textarea name="message" placeholder="Describe your vision, theme, and any specific requirements..." rows={5} required className="w-full px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary resize-none" />
+              <button type="submit" disabled={loading} className="w-full py-3 bg-gradient-gold text-primary-foreground font-semibold rounded-md hover:opacity-90 transition-opacity disabled:opacity-50">
+                {loading ? 'Sending...' : 'Submit Quote Request'}
               </button>
             </form>
           )}
         </div>
       </section>
 
-      {/* Lightbox */}
       <AnimatePresence>
         {lightboxImg && (
           <motion.div
