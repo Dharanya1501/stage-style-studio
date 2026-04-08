@@ -47,14 +47,15 @@ const CustomDesign = () => {
       `Hello, I have a quote request:\nName: ${name}\nMobile: +91${phone}\nEvent: ${eventType}\nDate: ${eventDate}\nBudget: ${budget}\nMessage: ${message}`
     );
 
+    const whatsappUrl = `https://wa.me/917538817674?text=${whatsappMsg}`;
+
     toast({ title: 'Redirecting to WhatsApp…', description: 'Your quote details are ready.' });
     setSubmitted(true);
     form.reset();
     setLoading(false);
 
-    setTimeout(() => {
-      window.open(`https://wa.me/917538817674?text=${whatsappMsg}`, '_blank');
-    }, 1000);
+    // Use window.location.href to avoid popup blockers
+    window.location.href = whatsappUrl;
   };
 
   return (
