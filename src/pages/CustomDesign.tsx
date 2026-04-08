@@ -1,8 +1,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { portfolioItems } from '@/data/products';
 import { useToast } from '@/hooks/use-toast';
-import { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useRef, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { ArrowLeft, X } from 'lucide-react';
 
 const steps = [
