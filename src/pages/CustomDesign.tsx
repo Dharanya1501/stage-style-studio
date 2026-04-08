@@ -126,7 +126,10 @@ const CustomDesign = () => {
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 bg-card border border-border rounded-lg p-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <input name="from_name" placeholder="Your Name" required className="w-full px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary" />
-                <input name="from_email" type="email" placeholder="Email" required className="w-full px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary" />
+                <div className="flex gap-2">
+                  <span className="inline-flex items-center px-3 bg-muted border border-border rounded-md text-sm text-foreground whitespace-nowrap">+91</span>
+                  <input name="mobile_number" type="tel" placeholder="Mobile Number" required pattern="[0-9]{10}" maxLength={10} title="Please enter a valid 10-digit mobile number" className="w-full px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary" />
+                </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <select name="event_type" required className="w-full px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary">
