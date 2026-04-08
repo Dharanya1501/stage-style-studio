@@ -14,10 +14,20 @@ const steps = [
 
 const CustomDesign = () => {
   const { toast } = useToast();
+  const location = useLocation();
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [lightboxImg, setLightboxImg] = useState<{ src: string; title: string } | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    if (location.hash === '#quote-form') {
+      setTimeout(() => {
+        const el = document.getElementById('quote-form');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+  }, [location.hash]);
 
   const backdropItems = portfolioItems.filter(item => item.category === 'Custom Backdrop');
 
