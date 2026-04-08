@@ -50,12 +50,17 @@ const CustomDesign = () => {
     const whatsappUrl = `https://wa.me/917538817674?text=${whatsappMsg}`;
 
     toast({ title: 'Redirecting to WhatsApp…', description: 'Your quote details are ready.' });
-    setSubmitted(true);
-    form.reset();
     setLoading(false);
 
-    // Use window.location.href to avoid popup blockers
-    window.location.href = whatsappUrl;
+    // Open WhatsApp in new tab - called synchronously in click handler to avoid popup blockers
+    const newWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    if (!newWindow) {
+      // Fallback if popup blocked
+      window.location.href = whatsappUrl;
+    }
+
+    setSubmitted(true);
+    form.reset();
   };
 
   return (
