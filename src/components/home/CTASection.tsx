@@ -20,7 +20,11 @@ const CTASection = () => (
           Ready to transform your next event into an unforgettable experience? Let's talk.
         </p>
         <a
-          href="#contact"
+          href="/custom-design#quote-form"
+          onClick={(e) => {
+            e.preventDefault();
+            window.location.href = '/custom-design#quote-form';
+          }}
           className="inline-flex items-center gap-2 px-10 py-4 bg-gradient-gold text-primary-foreground font-semibold rounded-md hover:opacity-90 transition-opacity text-lg"
         >
           Get a Quote
