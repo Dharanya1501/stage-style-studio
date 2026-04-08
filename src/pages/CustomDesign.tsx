@@ -4,7 +4,6 @@ import { useToast } from '@/hooks/use-toast';
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, X } from 'lucide-react';
-import emailjs from '@emailjs/browser';
 
 const steps = [
   { num: '01', title: 'Consultation', desc: 'Share your vision, event details, and preferences in a free consultation call.' },
@@ -22,7 +21,7 @@ const CustomDesign = () => {
 
   const backdropItems = portfolioItems.filter(item => item.category === 'Custom Backdrop');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
@@ -34,30 +33,18 @@ const CustomDesign = () => {
     const budget = (form.elements.namedItem('budget_range') as HTMLSelectElement).value;
     const message = (form.elements.namedItem('message') as HTMLTextAreaElement).value.trim();
 
-    try {
-      await emailjs.sendForm(
-        'service_ski952p',
-        'template_8vk5gkq',
-        form,
-        'Of_6ruKeVhIp1pI-N'
-      );
+    const whatsappMsg = encodeURIComponent(
+      `Hello, I have a quote request:\nName: ${name}\nMobile: +91${phone}\nEvent: ${eventType}\nDate: ${eventDate}\nBudget: ${budget}\nMessage: ${message}`
+    );
 
-      toast({ title: 'Quote Request Sent!', description: 'Redirecting to WhatsApp...' });
-      setSubmitted(true);
-      form.reset();
+    toast({ title: 'Redirecting to WhatsApp…', description: 'Your quote details are ready.' });
+    setSubmitted(true);
+    form.reset();
+    setLoading(false);
 
-      const whatsappMsg = encodeURIComponent(
-        `Hello, I have a quote request:\nName: ${name}\nPhone: +91${phone}\nEvent: ${eventType}\nDate: ${eventDate}\nBudget: ${budget}\nMessage: ${message}`
-      );
-      setTimeout(() => {
-        window.open(`https://wa.me/917538817674?text=${whatsappMsg}`, '_blank');
-      }, 1000);
-    } catch (error) {
-      console.error('EmailJS error:', error);
-      toast({ title: 'Failed to send', description: 'Something went wrong. Please try again.', variant: 'destructive' });
-    } finally {
-      setLoading(false);
-    }
+    setTimeout(() => {
+      window.open(`https://wa.me/917538817674?text=${whatsappMsg}`, '_blank');
+    }, 1000);
   };
 
   return (
