@@ -1,8 +1,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { portfolioItems } from '@/data/products';
 import { useToast } from '@/hooks/use-toast';
-import { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useRef, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { ArrowLeft, X } from 'lucide-react';
 
 const steps = [
@@ -14,10 +14,20 @@ const steps = [
 
 const CustomDesign = () => {
   const { toast } = useToast();
+  const location = useLocation();
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [lightboxImg, setLightboxImg] = useState<{ src: string; title: string } | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    if (location.hash === '#quote-form') {
+      setTimeout(() => {
+        const el = document.getElementById('quote-form');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+  }, [location.hash]);
 
   const backdropItems = portfolioItems.filter(item => item.category === 'Custom Backdrop');
 
@@ -114,7 +124,7 @@ const CustomDesign = () => {
         </div>
       </section>
 
-      <section className="py-20">
+      <section id="quote-form" className="py-20">
         <div className="container mx-auto px-4 max-w-2xl">
           <div className="text-center mb-12">
             <p className="text-primary tracking-[0.2em] uppercase text-sm mb-2">Get Started</p>
