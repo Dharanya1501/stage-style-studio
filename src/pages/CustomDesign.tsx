@@ -26,16 +26,32 @@ const CustomDesign = () => {
     e.preventDefault();
     setLoading(true);
 
+    const form = formRef.current!;
+    const name = (form.elements.namedItem('from_name') as HTMLInputElement).value.trim();
+    const phone = (form.elements.namedItem('mobile_number') as HTMLInputElement).value.trim();
+    const eventType = (form.elements.namedItem('event_type') as HTMLSelectElement).value;
+    const eventDate = (form.elements.namedItem('event_date') as HTMLInputElement).value;
+    const budget = (form.elements.namedItem('budget_range') as HTMLSelectElement).value;
+    const message = (form.elements.namedItem('message') as HTMLTextAreaElement).value.trim();
+
     try {
       await emailjs.sendForm(
         'service_ski952p',
         'template_8vk5gkq',
-        formRef.current!,
+        form,
         'Of_6ruKeVhIp1pI-N'
       );
-      toast({ title: 'Quote Request Sent!', description: 'Our design team will contact you within 24 hours.' });
+
+      toast({ title: 'Quote Request Sent!', description: 'Redirecting to WhatsApp...' });
       setSubmitted(true);
-      formRef.current?.reset();
+      form.reset();
+
+      const whatsappMsg = encodeURIComponent(
+        `Hello, I have a quote request:\nName: ${name}\nPhone: +91${phone}\nEvent: ${eventType}\nDate: ${eventDate}\nBudget: ${budget}\nMessage: ${message}`
+      );
+      setTimeout(() => {
+        window.open(`https://wa.me/917538817674?text=${whatsappMsg}`, '_blank');
+      }, 1000);
     } catch (error) {
       console.error('EmailJS error:', error);
       toast({ title: 'Failed to send', description: 'Something went wrong. Please try again.', variant: 'destructive' });
