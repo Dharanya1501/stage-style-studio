@@ -31,36 +31,47 @@ const CustomDesign = () => {
 
   const backdropItems = portfolioItems.filter(item => item.category === 'Custom Backdrop');
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleQuoteClick = () => {
+    const form = formRef.current;
+    if (!form || !form.reportValidity()) return;
+
     setLoading(true);
 
-    const form = formRef.current!;
     const name = (form.elements.namedItem('from_name') as HTMLInputElement).value.trim();
     const phone = (form.elements.namedItem('mobile_number') as HTMLInputElement).value.trim();
     const eventType = (form.elements.namedItem('event_type') as HTMLSelectElement).value;
     const eventDate = (form.elements.namedItem('event_date') as HTMLInputElement).value;
     const budget = (form.elements.namedItem('budget_range') as HTMLSelectElement).value;
     const message = (form.elements.namedItem('message') as HTMLTextAreaElement).value.trim();
+    const mobile = `+91${phone}`;
 
-    const whatsappMsg = encodeURIComponent(
-      `Hello, I have a quote request:\nName: ${name}\nMobile: +91${phone}\nEvent: ${eventType}\nDate: ${eventDate}\nBudget: ${budget}\nMessage: ${message}`
-    );
+    const whatsappMsg = encodeURIComponent([
+      'Hello I have a quote request:',
+      `Name: ${name}`,
+      `Mobile: ${mobile}`,
+      `Event: ${eventType}`,
+      `Date: ${eventDate}`,
+      `Budget: ${budget}`,
+      `Message: ${message}`,
+    ].join('\n'));
 
     const whatsappUrl = `https://wa.me/917538817674?text=${whatsappMsg}`;
 
-    toast({ title: 'Redirecting to WhatsApp…', description: 'Your quote details are ready.' });
-    setLoading(false);
-
-    // Open WhatsApp in new tab - called synchronously in click handler to avoid popup blockers
     const newWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     if (!newWindow) {
-      // Fallback if popup blocked
-      window.location.href = whatsappUrl;
+      const fallbackLink = document.createElement('a');
+      fallbackLink.href = whatsappUrl;
+      fallbackLink.target = '_blank';
+      fallbackLink.rel = 'noopener noreferrer';
+      document.body.appendChild(fallbackLink);
+      fallbackLink.click();
+      document.body.removeChild(fallbackLink);
     }
 
+    toast({ title: 'Redirecting to WhatsApp…', description: 'Your quote details are ready.' });
     setSubmitted(true);
     form.reset();
+    setLoading(false);
   };
 
   return (
@@ -142,7 +153,7 @@ const CustomDesign = () => {
               <p className="text-muted-foreground">Our design team will contact you within 24 hours.</p>
             </div>
           ) : (
-            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 bg-card border border-border rounded-lg p-8">
+            <form ref={formRef} onSubmit={(e) => e.preventDefault()} className="space-y-4 bg-card border border-border rounded-lg p-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <input name="from_name" placeholder="Your Name" required className="w-full px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary" />
                 <div className="flex gap-2">
@@ -172,8 +183,8 @@ const CustomDesign = () => {
                 <option>₹2,50,000 and above</option>
               </select>
               <textarea name="message" placeholder="Describe your vision, theme, and any specific requirements..." rows={5} required className="w-full px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary resize-none" />
-              <button type="submit" disabled={loading} className="w-full py-3 bg-gradient-gold text-primary-foreground font-semibold rounded-md hover:opacity-90 transition-opacity disabled:opacity-50">
-                {loading ? 'Sending...' : 'Submit Quote Request'}
+              <button type="button" onClick={handleQuoteClick} disabled={loading} className="w-full py-3 bg-gradient-gold text-primary-foreground font-semibold rounded-md hover:opacity-90 transition-opacity disabled:opacity-50">
+                {loading ? 'Redirecting...' : 'Submit Quote Request'}
               </button>
             </form>
           )}
