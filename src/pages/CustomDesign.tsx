@@ -57,21 +57,17 @@ const CustomDesign = () => {
 
     const whatsappUrl = `https://wa.me/917538817674?text=${whatsappMsg}`;
 
-    const newWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-    if (!newWindow) {
-      const fallbackLink = document.createElement('a');
-      fallbackLink.href = whatsappUrl;
-      fallbackLink.target = '_blank';
-      fallbackLink.rel = 'noopener noreferrer';
-      document.body.appendChild(fallbackLink);
-      fallbackLink.click();
-      document.body.removeChild(fallbackLink);
-    }
-
     toast({ title: 'Redirecting to WhatsApp…', description: 'Your quote details are ready.' });
-    setSubmitted(true);
-    form.reset();
-    setLoading(false);
+
+    setTimeout(() => {
+      const opened = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      if (!opened) {
+        window.location.href = whatsappUrl;
+      }
+      setSubmitted(true);
+      form.reset();
+      setLoading(false);
+    }, 500);
   };
 
   return (
