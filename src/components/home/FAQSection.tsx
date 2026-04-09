@@ -6,10 +6,10 @@ import {
 } from '@/components/ui/accordion';
 
 const faqs = [
-  { q: 'How far in advance should I book?', a: 'We recommend booking at least 4–6 weeks in advance for standard events, and 3–6 months for weddings and large-scale productions.' },
+  { q: 'How far in advance should I book?', a: 'You can book our services anytime—even a day before your event. We strive to accommodate last-minute requests based on availability, while advance booking is recommended for better planning and customization.' },
   { q: 'Do you offer setup and teardown services?', a: 'Yes! Our team handles full setup and teardown so you can focus on enjoying your event.' },
   { q: 'Can I customize the decor to match a specific theme?', a: 'Absolutely. We specialize in bespoke, theme-driven designs tailored to your vision and preferences.' },
-  { q: 'What areas do you serve?', a: 'We primarily serve the tri-state area but are available for destination events nationwide. Contact us for details.' },
+  { q: 'What areas do you serve?', a: 'We provide our services all over Tamil Nadu. Contact us for more details and availability in your location.' },
   { q: 'Do you offer rental services?', a: 'Yes, we offer a wide range of rental items including furniture, lighting, backdrops, and staging equipment.' },
 ];
 
