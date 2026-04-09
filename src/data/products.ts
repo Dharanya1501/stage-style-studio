@@ -369,22 +369,22 @@ export const portfolioItems = [
 export const testimonials = [
   {
     id: '1',
-    name: 'Sarah Mitchell',
-    role: 'Event Planner',
+    name: 'Nisha',
+    role: 'Client',
     text: 'Absolutely stunning work! They transformed our venue into a fairy tale. Every detail was perfect and our clients were blown away.',
     rating: 5,
   },
   {
     id: '2',
-    name: 'James Rodriguez',
-    role: 'Corporate Events Director',
+    name: 'Arhaan',
+    role: 'Client',
     text: 'Professional, creative, and incredibly reliable. They\'ve handled our annual gala for three years running and always exceed expectations.',
     rating: 5,
   },
   {
     id: '3',
-    name: 'Amira Hassan',
-    role: 'Bride',
+    name: 'Dhara',
+    role: 'Client',
     text: 'My wedding was everything I dreamed of and more. The team understood my vision perfectly and brought it to life with such elegance.',
     rating: 5,
   },
