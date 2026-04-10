@@ -15,6 +15,7 @@ const steps = [
 const CustomDesign = () => {
   const location = useLocation();
   const [lightboxImg, setLightboxImg] = useState<{ src: string; title: string } | null>(null);
+  const backdropItems = portfolioItems.filter(item => item.category === 'Custom Backdrop');
 
   return (
     <main className="pt-20 min-h-screen">
