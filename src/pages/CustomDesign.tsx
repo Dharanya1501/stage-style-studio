@@ -31,9 +31,10 @@ const CustomDesign = () => {
 
   const backdropItems = portfolioItems.filter(item => item.category === 'Custom Backdrop');
 
-  const handleQuoteClick = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const form = formRef.current;
-    if (!form || !form.reportValidity()) return;
+    if (!form) return;
 
     setLoading(true);
 
@@ -134,7 +135,7 @@ const CustomDesign = () => {
               <p className="text-muted-foreground">Our design team will contact you within 24 hours.</p>
             </div>
           ) : (
-            <form ref={formRef} onSubmit={(e) => e.preventDefault()} className="space-y-4 bg-card border border-border rounded-lg p-8">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 bg-card border border-border rounded-lg p-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <input name="from_name" placeholder="Your Name" required className="w-full px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary" />
                 <div className="flex gap-2">
@@ -164,7 +165,7 @@ const CustomDesign = () => {
                 <option>₹2,50,000 and above</option>
               </select>
               <textarea name="message" placeholder="Describe your vision, theme, and any specific requirements..." rows={5} required className="w-full px-3 py-2 bg-background border border-border rounded-md text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary resize-none" />
-              <button type="button" onClick={handleQuoteClick} disabled={loading} className="w-full py-3 bg-gradient-gold text-primary-foreground font-semibold rounded-md hover:opacity-90 transition-opacity disabled:opacity-50">
+              <button type="submit" disabled={loading} className="w-full py-3 bg-gradient-gold text-primary-foreground font-semibold rounded-md hover:opacity-90 transition-opacity disabled:opacity-50">
                 {loading ? 'Redirecting...' : 'Submit Quote Request'}
               </button>
             </form>
