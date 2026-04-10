@@ -37,12 +37,22 @@ const CustomDesign = () => {
 
     setLoading(true);
 
-    setTimeout(() => {
-      setSubmitted(true);
-      form.reset();
-      setLoading(false);
-      toast({ title: 'Quote Request Submitted!', description: 'Our design team will contact you within 24 hours.' });
-    }, 500);
+    const name = (form.elements.namedItem('from_name') as HTMLInputElement).value;
+    const mobile = (form.elements.namedItem('mobile_number') as HTMLInputElement).value;
+    const event = (form.elements.namedItem('event_type') as HTMLSelectElement).value;
+    const date = (form.elements.namedItem('event_date') as HTMLInputElement).value;
+    const budget = (form.elements.namedItem('budget_range') as HTMLSelectElement).value;
+    const message = (form.elements.namedItem('message') as HTMLTextAreaElement).value;
+
+    const text = `Hello I have a quote request:\nName: ${name}\nMobile: +91${mobile}\nEvent: ${event}\nDate: ${date}\nBudget: ${budget}\nMessage: ${message}`;
+    const whatsappUrl = `https://wa.me/917538817674?text=${encodeURIComponent(text)}`;
+
+    window.open(whatsappUrl, '_blank');
+
+    setSubmitted(true);
+    form.reset();
+    setLoading(false);
+    toast({ title: 'Quote Request Submitted!', description: 'Redirecting you to WhatsApp...' });
   };
 
   return (
