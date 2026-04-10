@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, X } from 'lucide-react';
+import QuoteForm from '@/components/QuoteForm';
 
 const images = [
   { src: '/images/birthday-decor-1.webp', title: 'Creative Birthday Decoration Setup' },
@@ -95,6 +96,8 @@ const BirthdayDecor = () => {
             ))}
           </div>
         </div>
+
+        <QuoteForm />
       </main>
 
       {/* Lightbox */}
