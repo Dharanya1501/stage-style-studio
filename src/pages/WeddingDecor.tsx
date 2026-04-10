@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, X } from 'lucide-react';
+import QuoteForm from '@/components/QuoteForm';
 
 const images = [
   { src: '/images/wedding-decor-1.webp', title: 'Traditional Floral Mandap' },
@@ -89,6 +90,8 @@ const WeddingDecor = () => {
             ))}
           </div>
         </div>
+
+        <QuoteForm />
       </main>
 
       {/* Lightbox */}
