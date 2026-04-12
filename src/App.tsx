@@ -12,6 +12,7 @@ import BirthdayDecor from "./pages/BirthdayDecor";
 import Gallery from "./pages/Gallery";
 import CustomDesign from "./pages/CustomDesign";
 import NotFound from "./pages/NotFound";
+import AdminLogin from "./pages/AdminLogin";
 
 const queryClient = new QueryClient();
 

@@ -1,17 +1,59 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, LogIn, LogOut } from 'lucide-react';
 import { portfolioItems } from '@/data/products';
+import { supabase } from '@/integrations/supabase/client';
+import { useAdmin } from '@/hooks/useAdmin';
+import GalleryUpload from '@/components/GalleryUpload';
+import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
-const allCategories = ['All', ...Array.from(new Set(portfolioItems.map(item => item.category)))];
+interface GalleryImage {
+  id: string;
+  image_url: string;
+  title: string;
+  category: string;
+}
 
 const Gallery = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [lightboxImg, setLightboxImg] = useState<{ src: string; title: string } | null>(null);
+  const [dbImages, setDbImages] = useState<GalleryImage[]>([]);
+  const { isAdmin, user } = useAdmin();
+
+  const fetchImages = useCallback(async () => {
+    const { data } = await supabase
+      .from('gallery_images')
+      .select('*')
+      .order('created_at', { ascending: false });
+    if (data) setDbImages(data as GalleryImage[]);
+  }, []);
+
+  useEffect(() => {
+    fetchImages();
+  }, [fetchImages]);
+
+  // Combine static + DB images
+  const allItems = [
+    ...dbImages.map((img, i) => ({
+      id: img.id,
+      image: img.image_url,
+      title: img.title,
+      category: img.category,
+      isDb: true,
+    })),
+    ...portfolioItems.map(item => ({ ...item, image: item.image, isDb: false })),
+  ];
+
+  const allCategories = ['All', ...Array.from(new Set(allItems.map(item => item.category)))];
 
   const filtered = selectedCategory === 'All'
-    ? portfolioItems
-    : portfolioItems.filter(item => item.category === selectedCategory);
+    ? allItems
+    : allItems.filter(item => item.category === selectedCategory);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
 
   return (
     <main className="pt-20 min-h-screen">
@@ -25,20 +67,35 @@ const Gallery = () => {
 
       <section className="py-12">
         <div className="container mx-auto px-4">
-          <div className="flex flex-wrap gap-2 mb-10">
-            {allCategories.map(cat => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 text-sm rounded-full border transition-colors ${
-                  selectedCategory === cat
-                    ? 'bg-primary text-primary-foreground border-primary'
-                    : 'border-border text-muted-foreground hover:border-primary/30 hover:text-foreground'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
+          {/* Admin controls */}
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+            <div className="flex flex-wrap gap-2">
+              {allCategories.map(cat => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`px-4 py-2 text-sm rounded-full border transition-colors ${
+                    selectedCategory === cat
+                      ? 'bg-primary text-primary-foreground border-primary'
+                      : 'border-border text-muted-foreground hover:border-primary/30 hover:text-foreground'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+            <div className="flex items-center gap-2">
+              {isAdmin && <GalleryUpload onUploaded={fetchImages} />}
+              {!user ? (
+                <Button variant="ghost" size="sm" asChild>
+                  <Link to="/admin-login"><LogIn className="w-4 h-4 mr-1" /> Admin</Link>
+                </Button>
+              ) : (
+                <Button variant="ghost" size="sm" onClick={handleLogout}>
+                  <LogOut className="w-4 h-4 mr-1" /> Logout
+                </Button>
+              )}
+            </div>
           </div>
 
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">

@@ -25,29 +25,12 @@ const AdminLogin = () => {
     }
   };
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    toast({ title: 'Logged out' });
-  };
-
   return (
     <main className="pt-20 min-h-screen flex items-center justify-center">
       <form onSubmit={handleLogin} className="w-full max-w-sm space-y-4 p-6">
         <h1 className="font-display text-2xl font-bold text-center">Admin Login</h1>
-        <Input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <Input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <Input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <Input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         <Button type="submit" className="w-full" disabled={loading}>
           {loading ? 'Signing in...' : 'Sign In'}
         </Button>
