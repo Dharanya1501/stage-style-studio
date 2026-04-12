@@ -12,6 +12,7 @@ import BirthdayDecor from "./pages/BirthdayDecor";
 import Gallery from "./pages/Gallery";
 import CustomDesign from "./pages/CustomDesign";
 import NotFound from "./pages/NotFound";
+import AdminLogin from "./pages/AdminLogin";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/birthday-decor" element={<BirthdayDecor />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/custom-design" element={<CustomDesign />} />
+            <Route path="/admin-login" element={<AdminLogin />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
