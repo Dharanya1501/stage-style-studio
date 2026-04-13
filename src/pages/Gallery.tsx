@@ -60,7 +60,7 @@ const Gallery = () => {
     <main className="pt-20 min-h-screen">
       <section className="py-16 bg-secondary">
         <div className="container mx-auto px-4">
-          <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="mb-4 -ml-2 text-muted-foreground hover:text-foreground">
+          <Button variant="ghost" size="sm" onClick={() => navigate('/#portfolio')} className="mb-4 -ml-2 text-muted-foreground hover:text-foreground">
             <ArrowLeft className="w-4 h-4 mr-1" /> Back
           </Button>
           <p className="text-primary tracking-[0.2em] uppercase text-sm mb-2">Our Work</p>
