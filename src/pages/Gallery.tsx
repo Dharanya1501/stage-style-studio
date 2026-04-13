@@ -43,7 +43,7 @@ const Gallery = () => {
       category: img.category,
       isDb: true,
     })),
-    ...portfolioItems.map(item => ({ ...item, image: item.image, isDb: false })),
+    ...portfolioItems.filter(item => item.category !== 'Wedding').map(item => ({ ...item, image: item.image, isDb: false })),
   ];
 
   const allCategories = ['All', ...Array.from(new Set(allItems.map(item => item.category)))];
