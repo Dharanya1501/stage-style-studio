@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, LogIn, LogOut } from 'lucide-react';
+import { X, LogIn, LogOut, ArrowLeft } from 'lucide-react';
 import { portfolioItems } from '@/data/products';
 import { supabase } from '@/integrations/supabase/client';
 import { useAdmin } from '@/hooks/useAdmin';
 import GalleryUpload from '@/components/GalleryUpload';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface GalleryImage {
   id: string;
@@ -16,6 +16,7 @@ interface GalleryImage {
 }
 
 const Gallery = () => {
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [lightboxImg, setLightboxImg] = useState<{ src: string; title: string } | null>(null);
   const [dbImages, setDbImages] = useState<GalleryImage[]>([]);
@@ -59,6 +60,9 @@ const Gallery = () => {
     <main className="pt-20 min-h-screen">
       <section className="py-16 bg-secondary">
         <div className="container mx-auto px-4">
+          <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="mb-4 -ml-2 text-muted-foreground hover:text-foreground">
+            <ArrowLeft className="w-4 h-4 mr-1" /> Back
+          </Button>
           <p className="text-primary tracking-[0.2em] uppercase text-sm mb-2">Our Work</p>
           <h1 className="font-display text-4xl md:text-5xl font-bold mb-4">Full Gallery</h1>
           <p className="text-muted-foreground max-w-2xl">Browse our complete collection across all service categories.</p>
