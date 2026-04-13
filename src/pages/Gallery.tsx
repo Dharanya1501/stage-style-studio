@@ -34,8 +34,8 @@ const Gallery = () => {
     fetchImages();
   }, [fetchImages]);
 
-  // Combine static + DB images, excluding wedding categories
-  const weddingCategories = ['Wedding', 'Wedding Decor'];
+  // Combine static + DB images
+  const allItems = [
   const allItems = [
     ...dbImages
       .filter(img => !weddingCategories.includes(img.category))
