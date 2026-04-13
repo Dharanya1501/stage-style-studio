@@ -16,6 +16,7 @@ interface GalleryImage {
 }
 
 const Gallery = () => {
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [lightboxImg, setLightboxImg] = useState<{ src: string; title: string } | null>(null);
   const [dbImages, setDbImages] = useState<GalleryImage[]>([]);
