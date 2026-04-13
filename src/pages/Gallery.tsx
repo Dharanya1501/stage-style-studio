@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, LogIn, LogOut } from 'lucide-react';
+import { X, LogIn, LogOut, ArrowLeft } from 'lucide-react';
 import { portfolioItems } from '@/data/products';
 import { supabase } from '@/integrations/supabase/client';
 import { useAdmin } from '@/hooks/useAdmin';
 import GalleryUpload from '@/components/GalleryUpload';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface GalleryImage {
   id: string;
