@@ -16,7 +16,7 @@ const PortfolioSection = () => {
             <h2 className="font-display text-4xl font-bold text-foreground">Portfolio</h2>
           </div>
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
-            {portfolioItems.map((item, i) => (
+            {portfolioItems.filter(item => !['2', '3', '5', '6'].includes(item.id)).map((item, i) => (
               <motion.div
                 key={item.id}
                 initial={{ opacity: 0, y: 20 }}

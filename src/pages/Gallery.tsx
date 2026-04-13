@@ -34,16 +34,21 @@ const Gallery = () => {
     fetchImages();
   }, [fetchImages]);
 
-  // Combine static + DB images
+  // Combine static + DB images, excluding wedding categories
+  const weddingCategories = ['Wedding', 'Wedding Decor'];
   const allItems = [
-    ...dbImages.map((img, i) => ({
-      id: img.id,
-      image: img.image_url,
-      title: img.title,
-      category: img.category,
-      isDb: true,
-    })),
-    ...portfolioItems.map(item => ({ ...item, image: item.image, isDb: false })),
+    ...dbImages
+      .filter(img => !weddingCategories.includes(img.category))
+      .map((img) => ({
+        id: img.id,
+        image: img.image_url,
+        title: img.title,
+        category: img.category,
+        isDb: true,
+      })),
+    ...portfolioItems
+      .filter(item => !weddingCategories.includes(item.category))
+      .map(item => ({ ...item, image: item.image, isDb: false })),
   ];
 
   const allCategories = ['All', ...Array.from(new Set(allItems.map(item => item.category)))];
