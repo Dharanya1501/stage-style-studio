@@ -4,14 +4,35 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Plus, Upload } from 'lucide-react';
+import { Plus, Upload, Sparkles } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
-const CATEGORIES = ['Wedding', 'Birthday', 'Corporate Event', 'Baby Shower', 'Engagement', 'Housewarming', 'Other'];
+// Must mirror the Full Gallery section order (excluding "All").
+export const GALLERY_CATEGORIES = [
+  'Wedding',
+  'Engagement',
+  'Haldi',
+  'Birthday',
+  'Custom Backdrop',
+  'Baby Shower',
+  'Naming Ceremony',
+  'Others',
+];
 
 interface GalleryUploadProps {
   onUploaded: () => void;
 }
+
+const fileToBase64 = (file: File) =>
+  new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      resolve(result.split(',')[1] || '');
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 
 const GalleryUpload = ({ onUploaded }: GalleryUploadProps) => {
   const [open, setOpen] = useState(false);
@@ -20,19 +41,52 @@ const GalleryUpload = ({ onUploaded }: GalleryUploadProps) => {
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [generatingTitle, setGeneratingTitle] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const generateTitle = async (selectedFile: File, selectedCategory: string) => {
+    try {
+      setGeneratingTitle(true);
+      const imageBase64 = await fileToBase64(selectedFile);
+      const { data, error } = await supabase.functions.invoke('generate-image-title', {
+        body: { imageBase64, mimeType: selectedFile.type, category: selectedCategory },
+      });
+      if (error) throw error;
+      if (data?.title) {
+        setTitle(data.title);
+      }
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : 'Could not generate title';
+      toast({ title: 'Auto-title failed', description: msg, variant: 'destructive' });
+    } finally {
+      setGeneratingTitle(false);
+    }
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
-    if (f) {
-      setFile(f);
-      setPreview(URL.createObjectURL(f));
+    if (!f) return;
+    setFile(f);
+    setPreview(URL.createObjectURL(f));
+    if (!title) {
+      await generateTitle(f, category);
+    }
+  };
+
+  const handleCategoryChange = async (value: string) => {
+    setCategory(value);
+    if (file && !title) {
+      await generateTitle(file, value);
     }
   };
 
   const handleUpload = async () => {
     if (!file) return;
+    if (!category) {
+      toast({ title: 'Please select a category', variant: 'destructive' });
+      return;
+    }
     setUploading(true);
 
     const ext = file.name.split('.').pop();
@@ -50,7 +104,7 @@ const GalleryUpload = ({ onUploaded }: GalleryUploadProps) => {
     const { error: dbError } = await supabase.from('gallery_images').insert({
       image_url: urlData.publicUrl,
       title: title || 'Untitled',
-      category: category || 'Other',
+      category,
     });
 
     if (dbError) {
@@ -93,22 +147,41 @@ const GalleryUpload = ({ onUploaded }: GalleryUploadProps) => {
             )}
             <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
           </div>
-          <Input
-            placeholder="Image title (optional)"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <Select value={category} onValueChange={setCategory}>
+
+          <Select value={category} onValueChange={handleCategoryChange}>
             <SelectTrigger>
-              <SelectValue placeholder="Select category" />
+              <SelectValue placeholder="Select category (required)" />
             </SelectTrigger>
             <SelectContent>
-              {CATEGORIES.map(cat => (
+              {GALLERY_CATEGORIES.map((cat) => (
                 <SelectItem key={cat} value={cat}>{cat}</SelectItem>
               ))}
             </SelectContent>
           </Select>
-          <Button onClick={handleUpload} disabled={!file || uploading} className="w-full">
+
+          <div className="space-y-1">
+            <div className="flex items-center justify-between gap-2">
+              <label className="text-xs text-muted-foreground">Title (auto-generated, editable)</label>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                disabled={!file || generatingTitle}
+                onClick={() => file && generateTitle(file, category)}
+                className="h-7 px-2 text-xs"
+              >
+                <Sparkles className="w-3 h-3 mr-1" />
+                {generatingTitle ? 'Generating…' : 'Regenerate'}
+              </Button>
+            </div>
+            <Input
+              placeholder={generatingTitle ? 'Generating title…' : 'e.g. Elegant White Wedding Setup'}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
+
+          <Button onClick={handleUpload} disabled={!file || !category || uploading} className="w-full">
             {uploading ? 'Uploading...' : 'Upload'}
           </Button>
         </div>
