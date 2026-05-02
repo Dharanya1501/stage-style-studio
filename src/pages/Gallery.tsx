@@ -46,7 +46,21 @@ const Gallery = () => {
     ...portfolioItems.filter(item => item.category !== 'Wedding').map(item => ({ ...item, image: item.image, isDb: false })),
   ];
 
-  const allCategories = ['All', ...Array.from(new Set(allItems.map(item => item.category)))];
+  const categoryOrder = [
+    'All',
+    'Wedding',
+    'Engagement',
+    'Haldi',
+    'Birthday',
+    'Custom Backdrop',
+    'Baby Shower',
+    'Naming Ceremony',
+    'Others',
+  ];
+  const presentCategories = Array.from(new Set(allItems.map(item => item.category)));
+  const orderedKnown = categoryOrder.filter(c => c === 'All' || presentCategories.includes(c));
+  const extras = presentCategories.filter(c => !categoryOrder.includes(c));
+  const allCategories = [...orderedKnown, ...extras];
 
   const filtered = selectedCategory === 'All'
     ? allItems
