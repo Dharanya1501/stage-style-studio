@@ -53,7 +53,7 @@ const Contact = () => {
 
               {/* WhatsApp */}
               <a
-                href="https://wa.me/15551234567"
+                href="https://wa.me/919611519412"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-[hsl(142,70%,40%)] text-white font-semibold rounded-md hover:opacity-90 transition-opacity"

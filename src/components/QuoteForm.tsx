@@ -22,7 +22,7 @@ const QuoteForm = () => {
     const message = (form.elements.namedItem('message') as HTMLTextAreaElement).value;
 
     const text = `Hello I have a quote request:\nName: ${name}\nMobile: +91${mobile}\nEvent: ${event}\nDate: ${date}\nBudget: ${budget}\nMessage: ${message}`;
-    const whatsappUrl = `https://wa.me/917538817674?text=${encodeURIComponent(text)}`;
+    const whatsappUrl = `https://wa.me/919611519412?text=${encodeURIComponent(text)}`;
 
     window.open(whatsappUrl, '_blank');
 
