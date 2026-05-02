@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "@/context/CartContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ScrollToHashOrTop from "@/components/ScrollToHashOrTop";
 import Index from "./pages/Index";
 import WeddingDecor from "./pages/WeddingDecor";
 import BirthdayDecor from "./pages/BirthdayDecor";
@@ -23,6 +24,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToHashOrTop />
           <Navbar />
           <Routes>
             <Route path="/" element={<Index />} />
