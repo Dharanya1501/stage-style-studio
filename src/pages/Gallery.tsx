@@ -34,18 +34,6 @@ const Gallery = () => {
     fetchImages();
   }, [fetchImages]);
 
-  // Combine static + DB images
-  const allItems = [
-    ...dbImages.map((img) => ({
-      id: img.id,
-      image: img.image_url,
-      title: img.title,
-      category: img.category,
-      isDb: true,
-    })),
-    ...portfolioItems.filter(item => item.category !== 'Wedding').map(item => ({ ...item, image: item.image, isDb: false })),
-  ];
-
   const categoryOrder = [
     'All',
     'Wedding',
@@ -57,10 +45,38 @@ const Gallery = () => {
     'Naming Ceremony',
     'Others',
   ];
-  const presentCategories = Array.from(new Set(allItems.map(item => item.category)));
-  const orderedKnown = categoryOrder.filter(c => c === 'All' || presentCategories.includes(c));
-  const extras = presentCategories.filter(c => !categoryOrder.includes(c));
-  const allCategories = [...orderedKnown, ...extras];
+
+  const normalizeCategory = (c: string): string => {
+    const map: Record<string, string> = {
+      'Wedding Decor': 'Wedding',
+      'Birthday Decor': 'Birthday',
+      'Private Party': 'Others',
+      'Corporate': 'Others',
+      'Festival': 'Others',
+      'Fashion': 'Others',
+    };
+    const mapped = map[c] ?? c;
+    return categoryOrder.includes(mapped) ? mapped : 'Others';
+  };
+
+  // Combine static + DB images
+  const allItems = [
+    ...dbImages.map((img) => ({
+      id: img.id,
+      image: img.image_url,
+      title: img.title,
+      category: normalizeCategory(img.category),
+      isDb: true,
+    })),
+    ...portfolioItems.map(item => ({
+      ...item,
+      image: item.image,
+      category: normalizeCategory(item.category),
+      isDb: false,
+    })),
+  ];
+
+  const allCategories = categoryOrder;
 
   const filtered = selectedCategory === 'All'
     ? allItems
