@@ -17,7 +17,7 @@ const PortfolioSection = () => {
           </div>
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
             {(() => {
-              const portfolioIds = ['22', '4', '7', '8', '9', '10', '11', '29', '13', '14', '15', '16', '17', '18', '19'];
+              const portfolioIds = ['7', '8', '9', '10', '11', '29', '13', '14', '15', '16', '17', '18', '19', '20', '30'];
               return portfolioIds
                 .map(id => portfolioItems.find(p => p.id === id))
                 .filter(Boolean) as typeof portfolioItems;
