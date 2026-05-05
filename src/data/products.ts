@@ -155,41 +155,6 @@ export const products: Product[] = [
 
 export const portfolioItems = [
   {
-    id: '1',
-    title: 'Royal Wedding Reception',
-    description: 'An opulent gold and ivory reception with 500+ guests',
-    image: 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800',
-    category: 'Wedding',
-  },
-  {
-    id: '2',
-    title: 'Corporate Gala Night',
-    description: 'Elegant black-tie corporate event with dramatic lighting',
-    image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800',
-    category: 'Corporate',
-  },
-  {
-    id: '3',
-    title: 'Festival Stage Design',
-    description: 'Vibrant outdoor festival main stage with LED installations',
-    image: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800',
-    category: 'Festival',
-  },
-  {
-    id: '4',
-    title: 'Luxury Birthday Celebration',
-    description: 'Intimate luxury birthday with floral cascades and candlelight',
-    image: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800',
-    category: 'Private Party',
-  },
-  {
-    id: '5',
-    title: 'Fashion Show Runway',
-    description: 'Minimalist runway design with dramatic backdrop lighting',
-    image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800',
-    category: 'Fashion',
-  },
-  {
     id: '6',
     title: 'Awards Ceremony',
     description: 'Grand awards ceremony with cascading crystal installations',
