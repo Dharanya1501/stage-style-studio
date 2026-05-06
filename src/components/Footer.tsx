@@ -1,7 +1,32 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Instagram, Facebook, Twitter } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { portfolioItems } from '@/data/products';
 
 const Footer = () => {
+  const [instaImages, setInstaImages] = useState<string[]>([]);
+
+  useEffect(() => {
+    const load = async () => {
+      const { data } = await supabase
+        .from('gallery_images')
+        .select('image_url')
+        .order('created_at', { ascending: false })
+        .limit(6);
+      const urls = (data ?? []).map((d: { image_url: string }) => d.image_url);
+      if (urls.length < 6) {
+        const fallback = portfolioItems.map(p => p.image);
+        for (const f of fallback) {
+          if (urls.length >= 6) break;
+          if (!urls.includes(f)) urls.push(f);
+        }
+      }
+      setInstaImages(urls.slice(0, 6));
+    };
+    load();
+  }, []);
+
   return (
     <footer className="bg-card border-t border-border">
       <div className="container mx-auto px-4 py-16">
@@ -54,14 +79,7 @@ const Footer = () => {
         <div className="mt-12 pt-8 border-t border-border">
           <h4 className="font-display text-lg font-semibold text-foreground mb-4 text-center">Follow Us on Instagram — <a href="https://www.instagram.com/cartoonentertainers?igsh=MWxqZWF0aGZreXlxdw==" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">@cartoonentertainers</a></h4>
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-            {[
-              'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=200&h=200&fit=crop',
-              'https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=200&h=200&fit=crop',
-              'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=200&h=200&fit=crop',
-              'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=200&h=200&fit=crop',
-              'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=200&h=200&fit=crop',
-              'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=200&h=200&fit=crop',
-            ].map((src, i) => (
+            {instaImages.map((src, i) => (
               <a key={i} href="https://www.instagram.com/cartoonentertainers?igsh=MWxqZWF0aGZreXlxdw==" target="_blank" rel="noopener noreferrer" className="aspect-square overflow-hidden rounded-md group">
                 <img src={src} alt="Instagram post" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy" />
               </a>
