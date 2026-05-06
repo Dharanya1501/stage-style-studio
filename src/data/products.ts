@@ -341,14 +341,14 @@ export const testimonials = [
   },
   {
     id: '2',
-    name: 'Arhaan',
+    name: 'Sujai',
     role: 'Client',
     text: 'Professional, creative, and incredibly reliable. They\'ve handled our annual gala for three years running and always exceed expectations.',
     rating: 5,
   },
   {
     id: '3',
-    name: 'Dhara',
+    name: 'Thara',
     role: 'Client',
     text: 'My wedding was everything I dreamed of and more. The team understood my vision perfectly and brought it to life with such elegance.',
     rating: 5,
