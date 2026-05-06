@@ -1,7 +1,32 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Instagram, Facebook, Twitter } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { portfolioItems } from '@/data/products';
 
 const Footer = () => {
+  const [instaImages, setInstaImages] = useState<string[]>([]);
+
+  useEffect(() => {
+    const load = async () => {
+      const { data } = await supabase
+        .from('gallery_images')
+        .select('image_url')
+        .order('created_at', { ascending: false })
+        .limit(6);
+      const urls = (data ?? []).map((d: { image_url: string }) => d.image_url);
+      if (urls.length < 6) {
+        const fallback = portfolioItems.map(p => p.image);
+        for (const f of fallback) {
+          if (urls.length >= 6) break;
+          if (!urls.includes(f)) urls.push(f);
+        }
+      }
+      setInstaImages(urls.slice(0, 6));
+    };
+    load();
+  }, []);
+
   return (
     <footer className="bg-card border-t border-border">
       <div className="container mx-auto px-4 py-16">
